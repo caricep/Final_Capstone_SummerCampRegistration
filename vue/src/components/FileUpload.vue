@@ -36,6 +36,7 @@ export default {
         .then(response => {
           if (response.status == "201") {
             console.log("File Upload Success");
+            this.$router.push({ name: "home" });
           }
         })
         .catch(err => console.error(err));

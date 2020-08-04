@@ -1,7 +1,9 @@
 package com.techelevator.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.Scanner;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -33,7 +35,21 @@ public class CamperController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path="/file-upload", method=RequestMethod.POST)
 	public void uploadFile(@RequestBody MultipartFile file) {
-		System.out.println("Were here");
+		if (!file.isEmpty()) {
+	        try {
+	            byte[] bytes = file.getBytes();
+	            String completeData = new String(bytes);
+	            String[] rows = completeData.split("#");
+	            System.out.println(rows);
+	            for(String row : rows) {
+	            	System.out.println(row);
+	            	System.out.println("----------");
+	            }
+	            System.out.println("END OF ROWS --------");
+	        } catch(IOException error) {
+	        	System.out.println(error.getMessage());
+	        }
+		}
 	}
 	
 	
