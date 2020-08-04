@@ -34,7 +34,7 @@ export default {
       fileHandlerService
         .uploadFile(formData)
         .then(response => {
-          if (response.status == "200") {
+          if (response.status == "201") {
             console.log("File Upload Success");
           }
         })

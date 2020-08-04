@@ -1,6 +1,7 @@
 package com.techelevator.jdbc;
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,13 @@ public class JdbcCamperDAO implements CamperDAO{
 			campers.add(camper);
 		}
 		return campers;
+	}
+	
+	@Override
+	public void uploadFile(File file) {
+		
+		
+		
 	}
 	
 	private Camper mapCamperFromRowSet(SqlRowSet camperRows) {
