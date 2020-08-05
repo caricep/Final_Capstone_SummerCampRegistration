@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Camper List</h1>
+    <h1 v-if="campers.length > 0">Camper List</h1>
     <camper-list-item v-for="camper in campers" :key="camper.camperID" :camper="camper" />
   </div>
 </template>
