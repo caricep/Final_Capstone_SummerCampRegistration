@@ -2,6 +2,7 @@ package com.techelevator.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -35,21 +36,26 @@ public class CamperController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path="/file-upload", method=RequestMethod.POST)
 	public void uploadFile(@RequestBody MultipartFile file) {
+        List<Camper> campers = new ArrayList();
 		if (!file.isEmpty()) {
 	        try {
 	            byte[] bytes = file.getBytes();
 	            String completeData = new String(bytes);
-	            String[] rows = completeData.split("#");
-	            System.out.println(rows);
-	            for(String row : rows) {
-	            	System.out.println(row);
-	            	System.out.println("----------");
-	            }
-	            System.out.println("END OF ROWS --------");
+	            String[] rows = completeData.split("\n");
+	            System.out.println(rows.length);
+	            for(int i= 1; i < rows.length; i++) {
+	            	Camper camper = new Camper();
+	            	camper = camper.mapper(rows[i]);
+	            	campers.add(camper);
+	            	}
 	        } catch(IOException error) {
 	        	System.out.println(error.getMessage());
 	        }
 		}
+		for (Camper camper : campers) {
+			camperDAO.addCamper(camper);
+		}
+		
 	}
 	
 	

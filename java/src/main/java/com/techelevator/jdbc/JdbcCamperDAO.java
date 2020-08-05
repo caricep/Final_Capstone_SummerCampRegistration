@@ -36,6 +36,23 @@ public class JdbcCamperDAO implements CamperDAO{
 	}
 	
 	@Override
+	public void addCamper(Camper camper) {
+		String familySql = "INSERT INTO family_contact (family_contact_id, family_contact_name, email_address, phone_number) "
+				+ "VALUES (DEFAULT, ?, ?, ?) RETURNING family_contact_id";
+		SqlRowSet row = jdbcTemplate.queryForRowSet(familySql, camper.getFamilyContactName(), camper.getEmail(), camper.getPhoneNumber());
+		
+		row.next();
+		int familyId = row.getInt("family_contact_id");
+		camper.setFamilyContactId(familyId);
+		
+		
+		String camperSql = "INSERT INTO camper (camper_id, camper_first_name, camper_last_name, date_of_birth, street_address, street_address_line_two, city, state_code, zip_code, payment_status, family_contact_id, additional_camper_notes) "
+				+ "VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		jdbcTemplate.update(camperSql, camper.getFirstName(), camper.getLastName(), camper.getDateOfBirth(), camper.getStreetAddress(), camper.getStreetAddressLineTwo(), camper.getCity(), camper.getStateCode(), camper.getZipCode(), camper.isPaymentStatus(), camper.getFamilyContactId(), camper.getAdditionalNotes());
+		
+	}
+	
+	@Override
 	public void uploadFile(File file) {
 		
 		

@@ -9,6 +9,7 @@ public interface CamperDAO {
 	
 	List<Camper> listAllCampers();
 	void uploadFile(File file);
+	void addCamper(Camper camper);
 	
 
 }
