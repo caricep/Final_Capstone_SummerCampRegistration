@@ -2,15 +2,20 @@ package com.techelevator.jdbc;
 
 
 import java.io.File;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
+import org.springframework.test.context.jdbc.Sql;
 
 import com.techelevator.camper.model.Camper;
+import com.techelevator.camper.model.History;
 import com.techelevator.dao.CamperDAO;
+
+import net.bytebuddy.asm.Advice.Local;
 
 @Component
 public class JdbcCamperDAO implements CamperDAO{
@@ -53,11 +58,28 @@ public class JdbcCamperDAO implements CamperDAO{
 	}
 	
 	@Override
-	public void uploadFile(File file) {
-		
-		
+	public void history(String changeType, String changeSpecifics, String changeDateAndTime, String userName) {
+		String sql = "INSERT INTO history (history_id, change_type, change_specifics, change_date_and_time, user_name) "
+				+ "VALUES (DEFAULT, ?, ?, ?, ?)";
+		jdbcTemplate.update(sql, changeType, changeSpecifics, changeDateAndTime, userName);
 		
 	}
+	
+	@Override
+	public List<History> listAllHistory() {
+		String sql = "SELECT history_id, change_type, change_specifics, change_date_and_time, user_name FROM history";
+		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql);
+		
+		List<History> histories = new ArrayList<History>();
+		while (rows.next()) {
+			History history = mapHistoryFromRowSet(rows);
+			histories.add(history);
+		}
+		return histories;
+		
+		}
+	
+	
 	
 	private Camper mapCamperFromRowSet(SqlRowSet camperRows) {
 		Camper camper = new Camper();
@@ -73,6 +95,15 @@ public class JdbcCamperDAO implements CamperDAO{
 		camper.setPaymentStatus(camperRows.getBoolean("payment_status"));
 		camper.setAdditionalNotes(camperRows.getString("additional_camper_notes"));
 		return camper;
+	}
+	
+	private History mapHistoryFromRowSet(SqlRowSet historyRows) {
+		History history = new History();
+		history.setUserName(historyRows.getString("user_name"));
+		history.setChangeType(historyRows.getString("change_type"));
+		history.setChangeSpecifics(historyRows.getString("change_specifics"));
+		history.setChangeDateAndTime(historyRows.getString("change_date_and_time"));
+		return history;
 	}
 
 }

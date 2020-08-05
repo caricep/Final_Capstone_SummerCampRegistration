@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS camper_family;
 DROP TABLE IF EXISTS dorm;
 DROP TABLE IF EXISTS camper;
 DROP TABLE IF EXISTS family_contact;
+DROP TABLE IF EXISTS history;
 
 CREATE SEQUENCE seq_user_id
   INCREMENT BY 1
@@ -71,5 +72,13 @@ CREATE TABLE dorm (
         
         CONSTRAINT fk_camper_id FOREIGN KEY (camper_id) REFERENCES camper(camper_id)
  );    
+
+ CREATE TABLE history (
+        history_id serial primary key,
+        change_type varchar(255),
+        change_specifics varchar(255),
+        change_date_and_time varchar(80),
+        user_name varchar(255)
+);
 
 COMMIT TRANSACTION;

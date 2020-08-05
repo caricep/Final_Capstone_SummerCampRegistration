@@ -2,11 +2,15 @@ package com.techelevator.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.Principal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.techelevator.camper.model.Camper;
+import com.techelevator.camper.model.History;
 import com.techelevator.dao.CamperDAO;
 
+//@PreAuthorize("isAuthenticated()")
 @RestController
 @CrossOrigin
 public class CamperController {
@@ -32,6 +38,7 @@ public class CamperController {
 	public List<Camper> getAllCampers() {
 		return camperDAO.listAllCampers();
 	}
+	
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path="/file-upload", method=RequestMethod.POST)
@@ -55,8 +62,18 @@ public class CamperController {
 		for (Camper camper : campers) {
 			camperDAO.addCamper(camper);
 		}
+		camperDAO.history("UPLOAD","Uploaded Campers", dateAndTimeGetter(), "user");
 		
 	}
 	
+	@RequestMapping(path="/history", method=RequestMethod.GET)
+	public List<History> getHistory() {
+		return camperDAO.listAllHistory();
+	}
+	
+	public String dateAndTimeGetter() {
+		String dateAndTime = (new SimpleDateFormat("MM/dd/YYYY hh:mm:ss a")).format(new Date());
+		return dateAndTime;
+	}
 	
 }

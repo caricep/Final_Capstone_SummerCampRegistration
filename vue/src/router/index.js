@@ -5,6 +5,7 @@ import Login from '../views/Login.vue';
 import Logout from '../views/Logout.vue';
 import Register from '../views/Register.vue';
 import Upload from '../views/Upload.vue';
+import History from '../views/History.vue';
 import store from '../store/index';
 
 Vue.use(Router);
@@ -58,6 +59,14 @@ const router = new Router({
 			path: '/upload',
 			name: 'upload',
 			component: Upload,
+			meta: {
+				requiresAuth: false
+			}
+		},
+		{
+			path: '/history',
+			name: 'history',
+			component: History,
 			meta: {
 				requiresAuth: false
 			}
