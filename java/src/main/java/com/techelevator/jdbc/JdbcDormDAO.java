@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Component;
 
 import com.techelevator.camper.model.Dorm;
 import com.techelevator.dao.DormDAO;
 
+@Component
 public class JdbcDormDAO implements DormDAO {
 	
 	private JdbcTemplate jdbcTemplate;
