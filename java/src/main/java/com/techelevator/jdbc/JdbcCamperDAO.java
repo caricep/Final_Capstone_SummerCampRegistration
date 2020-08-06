@@ -99,7 +99,7 @@ public class JdbcCamperDAO implements CamperDAO{
 	@Override
 	public void updateFamilyContactName(FamilyContact familyContact) {
 		String updateSql = "UPDATE family_contact SET family_contact_name = ? WHERE family_contact_id = ?";
-		jdbcTemplate.update()
+		jdbcTemplate.update(updateSql, familyContact.getFamilyContactName(), familyContact.getFamilyContactID());
 		
 	}
 	
