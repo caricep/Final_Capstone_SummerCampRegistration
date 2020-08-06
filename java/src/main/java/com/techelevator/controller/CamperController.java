@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.techelevator.camper.model.Camper;
+import com.techelevator.camper.model.FamilyContact;
 import com.techelevator.camper.model.History;
 import com.techelevator.dao.CamperDAO;
 
@@ -35,6 +36,35 @@ public class CamperController {
 		return camperDAO.listAllCampers();
 	}
 	
+	@RequestMapping(path="/campers/address", method=RequestMethod.PUT)
+	public void updateCamperAddress(@RequestBody Camper camper) {
+		camperDAO.updateCamperAddress(camper);
+	}
+	
+	@RequestMapping(path="/campers/payment-status", method=RequestMethod.PUT)
+	public void updateCamperPaymentStatus(@RequestBody Camper camper) {
+		camperDAO.updateCamperPaymentStatus(camper);
+	}
+	
+	@RequestMapping(path="/campers/notes", method=RequestMethod.PUT)
+	public void updateCamperNotes(@RequestBody Camper camper) {
+		camperDAO.updateCamperNotes(camper);
+	}
+	
+	@RequestMapping(path="/family-contacts/contact-name", method=RequestMethod.PUT)
+	public void updateFamilyContactName(@RequestBody FamilyContact familyContact) {
+		camperDAO.updateFamilyContactName(familyContact);
+	}
+	
+	@RequestMapping(path="/family-contacts/contact-email", method=RequestMethod.PUT)
+	public void updateFamilyContactEmailAddress(@RequestBody FamilyContact familyContact) {
+		camperDAO.updateFamilyContactEmailAddress(familyContact);
+	}
+	
+	@RequestMapping(path="/family-contacts/contact-phone", method=RequestMethod.PUT)
+	public void updateFamilyContactPhoneNumber(@RequestBody FamilyContact familyContact) {
+		camperDAO.updateFamilyContactPhoneNumber(familyContact);
+	}
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path="/file-upload", method=RequestMethod.POST)
@@ -66,6 +96,8 @@ public class CamperController {
 	public List<History> getHistory() {
 		return camperDAO.listAllHistory();
 	}
+	
+	
 	
 	public String dateAndTimeGetter() {
 		String dateAndTime = (new SimpleDateFormat("MM/dd/YYYY hh:mm:ss a")).format(new Date());

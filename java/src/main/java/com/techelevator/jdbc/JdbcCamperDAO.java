@@ -25,7 +25,10 @@ public class JdbcCamperDAO implements CamperDAO{
 	@Override
 	public List<Camper> listAllCampers() {
 		String sql = "SELECT camper_id, camper_first_name, camper_last_name, date_of_birth, street_address, "
-				+ "street_address_line_two, city, state_code, zip_code, payment_status, family_contact_id, additional_camper_notes FROM camper";
+				+ "street_address_line_two, city, state_code, zip_code, payment_status, camper.family_contact_id, additional_camper_notes, "
+				+ "family_contact.family_contact_id, family_contact.family_contact_name, family_contact.email_address, family_contact.phone_number "
+				+ "FROM camper JOIN family_contact ON camper.family_contact_id = family_contact.family_contact_id";
+
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql);
 		
 		List<Camper> campers = new ArrayList<Camper>();

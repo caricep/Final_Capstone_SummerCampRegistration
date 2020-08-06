@@ -38,7 +38,13 @@ public class JdbcDormDAO implements DormDAO {
 		jdbcTemplate.update(sql, dorm.getDormName(), dorm.getCamperID());
 		
 	}
-
+	
+	@Override
+	public void removeCamperFromDorm(Dorm dorm) {
+		String deleteSql = "DELETE FROM dorm WHERE dorm_id = ? AND camper_id = ?";
+		jdbcTemplate.update(deleteSql, dorm.getDormID(), dorm.getCamperID());
+			
+	}
 
 	private Dorm mapDormFromRowSet(SqlRowSet dormRows) {
 		Dorm dorm = new Dorm();
@@ -49,4 +55,6 @@ public class JdbcDormDAO implements DormDAO {
 		
 		return dorm;
 	}
+
+	
 }

@@ -8,5 +8,6 @@ public interface DormDAO {
 
 	List<Dorm> getListOfDorms();
 	void addCamperToDorm(Dorm dorm);
+	void removeCamperFromDorm(Dorm dorm);
 	
 }

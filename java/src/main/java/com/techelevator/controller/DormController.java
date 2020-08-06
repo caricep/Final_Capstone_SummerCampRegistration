@@ -34,4 +34,9 @@ public class DormController {
 		dormDAO.addCamperToDorm(dorm);
 	}
 	
+	@RequestMapping(path="/dorms", method=RequestMethod.DELETE)
+	public void removeCamperFromDorm(@RequestBody Dorm dorm) {
+		dormDAO.removeCamperFromDorm(dorm);
+	}
+	
 }
