@@ -1,21 +1,17 @@
 package com.techelevator.jdbc;
 
 
-import java.io.File;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
-import org.springframework.test.context.jdbc.Sql;
 
 import com.techelevator.camper.model.Camper;
+import com.techelevator.camper.model.FamilyContact;
 import com.techelevator.camper.model.History;
 import com.techelevator.dao.CamperDAO;
-
-import net.bytebuddy.asm.Advice.Local;
 
 @Component
 public class JdbcCamperDAO implements CamperDAO{
@@ -79,6 +75,47 @@ public class JdbcCamperDAO implements CamperDAO{
 		
 		}
 	
+	@Override
+	public void updateCamperAddress(Camper camper) {
+		String updateSql = "UPDATE camper SET street_address = ?, street_address_line_two = ?, city = ?, state_code = ?, zip_code = ? WHERE camper_id = ?";
+		jdbcTemplate.update(updateSql, camper.getStreetAddress(), camper.getStreetAddressLineTwo(), 
+				camper.getCity(), camper.getStateCode(), camper.getZipCode(), camper.getCamperID());	
+	}
+
+	@Override
+	public void updateCamperPaymentStatus(Camper camper) {
+		String updateSql = "UPDATE camper SET payment_status = ? WHERE camper_id = ?";
+		jdbcTemplate.update(updateSql, camper.isPaymentStatus(), camper.getCamperID());
+		
+	}
+
+	@Override
+	public void updateCamperNotes(Camper camper) {
+		String updateSql = "UPDATE camper SET additional_camper_notes = ? WHERE camper_id = ?";
+		jdbcTemplate.update(updateSql, camper.getAdditionalNotes(), camper.getCamperID());
+		
+	}
+	
+	@Override
+	public void updateFamilyContactName(FamilyContact familyContact) {
+		String updateSql = "UPDATE family_contact SET family_contact_name = ? WHERE family_contact_id = ?";
+		jdbcTemplate.update()
+		
+	}
+	
+	@Override
+	public void updateFamilyContactEmailAddress(FamilyContact familyContact) {
+		String updateSql = "UPDATE family_contact SET email_address = ? WHERE family_contact_id = ?";
+		jdbcTemplate.update(updateSql, familyContact.getEmailAddress(), familyContact.getFamilyContactID());
+		
+	}
+
+	@Override
+	public void updateFamilyContactPhoneNumber(FamilyContact familyContact) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	
 	
 	private Camper mapCamperFromRowSet(SqlRowSet camperRows) {
@@ -93,7 +130,12 @@ public class JdbcCamperDAO implements CamperDAO{
 		camper.setStateCode(camperRows.getString("state_code"));
 		camper.setZipCode(camperRows.getString("zip_code"));
 		camper.setPaymentStatus(camperRows.getBoolean("payment_status"));
+		camper.setFamilyContact(camperRows.getInt("family_contact_id"));
 		camper.setAdditionalNotes(camperRows.getString("additional_camper_notes"));
+		camper.setFamilyContactId(camperRows.getInt("family_contact_id"));
+		camper.setFamilyContactName(camperRows.getString("family_contact_name"));
+		camper.setEmail(camperRows.getString("email_address"));
+		camper.setPhoneNumber(camperRows.getString("phone_number"));
 		return camper;
 	}
 	
@@ -105,5 +147,7 @@ public class JdbcCamperDAO implements CamperDAO{
 		history.setChangeDateAndTime(historyRows.getString("change_date_and_time"));
 		return history;
 	}
+
+	
 
 }
