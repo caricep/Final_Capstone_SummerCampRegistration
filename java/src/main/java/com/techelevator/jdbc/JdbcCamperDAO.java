@@ -112,7 +112,8 @@ public class JdbcCamperDAO implements CamperDAO{
 
 	@Override
 	public void updateFamilyContactPhoneNumber(FamilyContact familyContact) {
-		// TODO Auto-generated method stub
+		String updateSql = "UPDATE family_contact SET phone_number = ? WHERE family_contact_id = ?";
+		jdbcTemplate.update(updateSql, familyContact.getPhoneNumber(), familyContact.getFamilyContactID());
 		
 	}
 	
