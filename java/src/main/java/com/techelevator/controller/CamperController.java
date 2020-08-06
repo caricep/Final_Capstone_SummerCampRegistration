@@ -39,31 +39,37 @@ public class CamperController {
 	@RequestMapping(path="/campers/address", method=RequestMethod.PUT)
 	public void updateCamperAddress(@RequestBody Camper camper) {
 		camperDAO.updateCamperAddress(camper);
+		camperDAO.history("UPDATE", "Updated Address", dateAndTimeGetter(), "user");
 	}
 	
 	@RequestMapping(path="/campers/payment-status", method=RequestMethod.PUT)
 	public void updateCamperPaymentStatus(@RequestBody Camper camper) {
 		camperDAO.updateCamperPaymentStatus(camper);
+		camperDAO.history("UPDATE", "Updated Payment Status", dateAndTimeGetter(), "user");
 	}
 	
 	@RequestMapping(path="/campers/notes", method=RequestMethod.PUT)
 	public void updateCamperNotes(@RequestBody Camper camper) {
 		camperDAO.updateCamperNotes(camper);
+		camperDAO.history("UPDATE", "Updated Additional Notes", dateAndTimeGetter(), "user");
 	}
 	
 	@RequestMapping(path="/family-contacts/contact-name", method=RequestMethod.PUT)
 	public void updateFamilyContactName(@RequestBody FamilyContact familyContact) {
 		camperDAO.updateFamilyContactName(familyContact);
+		camperDAO.history("UPDATE", "Updated Emergency Contact Name", dateAndTimeGetter(), "user");
 	}
 	
 	@RequestMapping(path="/family-contacts/contact-email", method=RequestMethod.PUT)
 	public void updateFamilyContactEmailAddress(@RequestBody FamilyContact familyContact) {
 		camperDAO.updateFamilyContactEmailAddress(familyContact);
+		camperDAO.history("UPDATE", "Updated Emergency Contact Email Address", dateAndTimeGetter(), "user");
 	}
 	
 	@RequestMapping(path="/family-contacts/contact-phone", method=RequestMethod.PUT)
 	public void updateFamilyContactPhoneNumber(@RequestBody FamilyContact familyContact) {
 		camperDAO.updateFamilyContactPhoneNumber(familyContact);
+		camperDAO.history("UPDATE", "Updated Emergency Contact Phone Number", dateAndTimeGetter(), "user");
 	}
 	
 	@ResponseStatus(HttpStatus.CREATED)
