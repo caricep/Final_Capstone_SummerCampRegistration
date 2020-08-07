@@ -1,13 +1,18 @@
 <template>
-  <div class="container">
-    <!-- Bootstrap CSS to be changed out -->
-    <div class="large-12 medium-12 small-12 cell">
-      <label for="file">
-        <input type="file" id="file" ref="file" v-on:change="handleFileUpload()" />
-      </label>
-      <button v-on:click="submitFile()">Submit File</button>
-    </div>
-  </div>
+  <v-content>
+    <v-container>
+      <v-row justify="center">
+        <v-col cols="6">
+          <v-file-input v-model="file" label="Upload your Campers CSV" accept=".csv"></v-file-input>
+        </v-col>
+      </v-row>
+      <v-row justify="center">
+        <v-col cols="6">
+          <v-btn color="primary" @click="submitFile()">Upload</v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-content>
 </template>
 
 <script>
@@ -36,7 +41,7 @@ export default {
         .then(response => {
           if (response.status == "201") {
             console.log("File Upload Success");
-            this.$router.push({ name: "home" });
+            this.$router.push({ name: "campers" });
           }
         })
         .catch(err => console.error(err));

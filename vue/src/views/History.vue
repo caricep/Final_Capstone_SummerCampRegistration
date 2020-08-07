@@ -1,17 +1,92 @@
 <template>
-  <div>
-    <history-list />
+  <div class="history">
+    <v-container class="my-10 mx-16">
+      <v-row class="mb-3">
+        <v-tooltip top>
+          <template v-slot:activator="{ on: sortHistory }">
+            <v-btn small text color="grey" @click="sortByChangeType()" v-on="sortHistory">
+              <v-icon left small>mdi-label</v-icon>
+              <span class="caption text-lowercase">By Change Type</span>
+            </v-btn>
+          </template>
+          <span>Sort By Change Type</span>
+        </v-tooltip>
+      </v-row>
+
+      <v-card flat v-for="history in histories" :key="history.historyID">
+        <v-row no-gutters :class="`pa-3 history ${history.changeType}`">
+          <v-col cols="12" sm="3" md="3">
+            <div class="caption grey--text">Change Type</div>
+            <v-chip
+              small
+              :color="`${history.changeType == 'UPLOAD' ? '#3c99dc' : '#ff9800'}`"
+              class="white--text caption my-2"
+            >{{history.changeType}}</v-chip>
+          </v-col>
+          <v-col cols="12" sm="3" md="3">
+            <div class="caption grey--text">User</div>
+            <div>{{history.userName}}</div>
+          </v-col>
+          <v-col cols="12" sm="3" md="3">
+            <div class="caption grey--text">Timestamp</div>
+            <div>{{history.changeDateAndTime}}</div>
+          </v-col>
+          <v-col cols="12" sm="3" md="3">
+            <div class="caption grey--text">Change Specifics</div>
+            <div>{{history.changeSpecifics}}</div>
+          </v-col>
+        </v-row>
+        <v-divider></v-divider>
+      </v-card>
+    </v-container>
   </div>
 </template>
 
 <script>
-import HistoryList from "@/components/HistoryList.vue";
+import historyService from "@/services/HistoryService.js";
 export default {
-  components: {
-    HistoryList
+  name: "history-list",
+  components: {},
+  data() {
+    return {
+      histories: [],
+      changeTypeSortDirection: "ascending"
+    };
+  },
+  methods: {
+    sortByChangeType() {
+      if (this.changeTypeSortDirection == "ascending") {
+        this.histories.sort((a, b) =>
+          // Sort compares items next to eachother in an array
+          // We'll get a 1 if we need to change the order, -1 if we don't need to change the order
+          a.changeType < b.changeType ? -1 : 1
+        );
+        this.changeTypeSortDirection = "descending";
+      } else {
+        this.histories.sort((a, b) => (a.changeType < b.changeType ? 1 : -1));
+        this.changeTypeSortDirection = "ascending";
+      }
+    },
+    getAllHistory() {
+      historyService.getHistory().then(response => {
+        console.log(response.data);
+        this.histories = response.data;
+      });
+    },
+    getHistoryType(history) {
+      if (history.changeType == "UPLOAD") {
+        return "#3C99DC";
+      }
+    }
+  },
+  created() {
+    this.getAllHistory();
   }
 };
 </script>
 
 <style>
+.history.UPLOAD {
+  border-left: 4px solid #3c99dc;
+}
 </style>

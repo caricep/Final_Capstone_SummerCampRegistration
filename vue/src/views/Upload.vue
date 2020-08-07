@@ -1,7 +1,10 @@
 <template>
   <div>
-    <h1>Upload Form</h1>
-    <file-upload />
+    <h1 class="subtitle-1 grey--text">Upload Form</h1>
+
+    <v-container class="my-10 mx-16">
+      <file-upload />
+    </v-container>
   </div>
 </template>
 

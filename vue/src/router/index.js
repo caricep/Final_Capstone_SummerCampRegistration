@@ -1,11 +1,13 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from '../views/Home.vue';
+import Dashboard from '../views/Dashboard.vue';
 import Login from '../views/Login.vue';
 import Logout from '../views/Logout.vue';
 import Register from '../views/Register.vue';
 import Upload from '../views/Upload.vue';
 import History from '../views/History.vue';
+import Campers from '../views/Campers.vue';
+import Team from '../views/Team.vue';
 import store from '../store/index';
 
 Vue.use(Router);
@@ -25,8 +27,8 @@ const router = new Router({
 	routes: [
 		{
 			path: '/',
-			name: 'home',
-			component: Home,
+			name: 'dashboard',
+			component: Dashboard,
 			meta: {
 				requiresAuth: true
 			}
@@ -67,6 +69,22 @@ const router = new Router({
 			path: '/history',
 			name: 'history',
 			component: History,
+			meta: {
+				requiresAuth: false
+			}
+		},
+		{
+			path: '/campers',
+			name: 'campers',
+			component: Campers,
+			meta: {
+				requiresAuth: false
+			}
+		},
+		{
+			path: '/team',
+			name: 'team',
+			component: Team,
 			meta: {
 				requiresAuth: false
 			}
