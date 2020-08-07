@@ -39,7 +39,11 @@
           <v-col cols="12" sm="4" md="1">
             <div class="caption grey--text">Camper</div>
             <div>{{camper.firstName}} {{camper.lastName}}</div>
-            <Popup :camper="camper" @camperEdited="snackbar=true" />
+            <Popup
+              :camper="camper"
+              @camperEdited="snackbar=true"
+              @camperUpdated="camperUpdated=true"
+            />
           </v-col>
           <v-col cols="12" sm="4" md="1">
             <div class="caption grey--text">Date Of Birth</div>
@@ -171,15 +175,20 @@ export default {
         "WI",
         "WY"
       ],
-      snackbar: false
+      snackbar: false,
+      camperUpdated: false
     };
   },
   methods: {
+    saveCampers() {
+      this.$store.commit("SET_CAMPERS", this.campers);
+    },
     getCampers() {
       camperService.getAllCampers().then(response => {
         console.log(response.data);
         this.campers = response.data;
       });
+      this.saveCampers();
     },
     sortByLastName() {
       if (this.lastNameSortDirection == "ascending") {
@@ -212,6 +221,7 @@ export default {
   },
   created() {
     this.getCampers();
+    this.saveCampers();
   }
 };
 </script>
