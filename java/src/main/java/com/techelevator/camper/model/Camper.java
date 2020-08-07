@@ -174,11 +174,7 @@ public class Camper {
 			camper.setCity(attributes.get(i+5));
 			camper.setStateCode(attributes.get(i+6));
 			camper.setZipCode(attributes.get(i+7));
-			if (attributes.get(i+8) == "true") {
-				camper.setPaymentStatus(true);
-			} else {
-				camper.setPaymentStatus(false);
-			}
+			camper.setPaymentStatus(convertPaymentStatus(attributes.get(i+8)));
 			camper.setFamilyContact(Integer.parseInt((attributes.get(i+9))));
 			camper.setAdditionalNotes(attributes.get(i+10));
 			camper.setFamilyContactId(Integer.parseInt(attributes.get(i+11)));
@@ -187,5 +183,13 @@ public class Camper {
 			camper.setPhoneNumber(attributes.get(i+14));
 	}
 		return camper;
+	}
+	
+	private boolean convertPaymentStatus(String paymentStatus) {
+		System.out.println(paymentStatus);
+		if(paymentStatus.equals("Paid")) {
+			return true;
+		}
+		return false;
 	}
 }
