@@ -58,8 +58,10 @@
 </template>
 
 <script>
+import CamperService from "@/services/CamperService.js";
 export default {
   props: ["camper"],
+  components: [CamperService],
   data() {
     return {
       paid: "Paid",
@@ -103,7 +105,7 @@ export default {
     submit() {
       this.isLoading = true;
       // Submit this editedCamper to the API using a PUT
-      console.log(this.editedCamper);
+      CamperService.updateCampers(this.editedCamper);
       setTimeout((this.isLoading = false), 3000);
       this.dialog = false;
       this.$emit("camperEdited");
