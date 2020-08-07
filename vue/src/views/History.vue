@@ -34,10 +34,46 @@
           <v-col cols="12" sm="3" md="3">
             <div class="caption grey--text">Change Specifics</div>
             <div>{{history.changeSpecifics}}</div>
+            <!-- <div v-if="history.changeType == 'UPLOAD'">{{history.changeSpecifics}}</div>
+            <div
+              v-else
+              v-for="change in historyChangesMade"
+              :key="change.Id"
+            >{{change.length > 0 ? change[0] : ''}}</div>-->
           </v-col>
         </v-row>
         <v-divider></v-divider>
       </v-card>
+
+      <!-- <v-card flat v-for="history in histories" :key="history.historyID">
+        <v-row
+          v-if="history.changeType = 'UPLOAD'"
+          no-gutters
+          :class="`pa-3 history ${history.changeType}`"
+        >
+          <v-col cols="12" sm="3" md="3">
+            <div class="caption grey--text">Change Type</div>
+            <v-chip
+              small
+              :color="`${history.changeType == 'UPLOAD' ? '#3c99dc' : '#ff9800'}`"
+              class="white--text caption my-2"
+            >{{history.changeType}}</v-chip>
+          </v-col>
+          <v-col cols="12" sm="3" md="3">
+            <div class="caption grey--text">User</div>
+            <div>{{history.userName}}</div>
+          </v-col>
+          <v-col cols="12" sm="3" md="3">
+            <div class="caption grey--text">Timestamp</div>
+            <div>{{history.changeDateAndTime}}</div>
+          </v-col>
+          <v-col cols="12" sm="3" md="3">
+            <div class="caption grey--text">Change Specifics</div>
+            <div>{{history.changeSpecifics}}</div>
+          </v-col>
+        </v-row>
+        <v-divider></v-divider>
+      </v-card>-->
     </v-container>
   </div>
 </template>
@@ -50,6 +86,8 @@ export default {
   data() {
     return {
       histories: [],
+      vuexChangesMade: [],
+      historyChangesMade: [],
       changeTypeSortDirection: "ascending"
     };
   },
@@ -77,10 +115,21 @@ export default {
       if (history.changeType == "UPLOAD") {
         return "#3C99DC";
       }
+    },
+    grabChanges() {
+      this.vuexChangesMade = this.$store.state.changesMade;
+    },
+    distributeChanges() {
+      let firstChanges = this.vuexChangesMade[0];
+      for (let change in firstChanges) {
+        this.historyChangesMade.push(change);
+      }
     }
   },
   created() {
     this.getAllHistory();
+    this.grabChanges();
+    this.distributeChanges();
   }
 };
 </script>
@@ -88,5 +137,8 @@ export default {
 <style>
 .history.UPLOAD {
   border-left: 4px solid #3c99dc;
+}
+.history.UPDATE {
+  border-left: 4px solid #ff9800;
 }
 </style>

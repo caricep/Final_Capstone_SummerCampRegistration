@@ -20,7 +20,8 @@ export default new Vuex.Store({
 	state: {
 		token: currentToken || '',
 		user: currentUser || {},
-		campers: []
+		campers: [],
+		changesMade: []
 	},
 	mutations: {
 		SET_AUTH_TOKEN(state, token) {
@@ -30,6 +31,9 @@ export default new Vuex.Store({
 		},
 		SET_CAMPERS(state, campers) {
 			state.campers = campers;
+		},
+		SET_CHANGES_MADE(state, changesMade) {
+			state.changesMade.push(changesMade);
 		},
 		SET_USER(state, user) {
 			state.user = user;

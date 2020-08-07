@@ -81,14 +81,13 @@ public class JdbcCamperDAO implements CamperDAO {
 	
 	@Override
 	public void updateCamper(Camper camper) {
-		String updateCamperSql = "INSERT INTO camper (camper_id, camper_first_name, camper_last_name, date_of_birth, street_address, "
-				+ "street_address_line_two, city, state_code, zip_code, payment_status, family_contact_id, additional_camper_notes) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		jdbcTemplate.update(updateCamperSql, camper.getCamperID(), camper.getFirstName(), camper.getLastName(), camper.getDateOfBirth(), camper.getStreetAddress(), 
-				camper.getStreetAddressLineTwo(), camper.getCity(), camper.getStateCode(), camper.getZipCode(), camper.isPaymentStatus(), camper.getFamilyContact(), camper.getAdditionalNotes());
+		String updateCamperSql = "UPDATE camper SET camper_first_name = ?, camper_last_name = ?, date_of_birth = ?, street_address = ?, "
+				+ "street_address_line_two = ?, city = ?, state_code = ?, zip_code = ?, payment_status = ?, family_contact_id = ?, additional_camper_notes = ? WHERE camper_id = ?";
+		jdbcTemplate.update(updateCamperSql, camper.getFirstName(), camper.getLastName(), camper.getDateOfBirth(), camper.getStreetAddress(), 
+				camper.getStreetAddressLineTwo(), camper.getCity(), camper.getStateCode(), camper.getZipCode(), camper.isPaymentStatus(), camper.getFamilyContact(), camper.getAdditionalNotes(),  camper.getCamperID());
 		
-		String updateFamilyContactSql = "INSERT INTO family_contact (family_contact_id, family_contact_name, email_address, phone_number) VALUES (?, ?, ?, ?)";
-		jdbcTemplate.update(updateFamilyContactSql, camper.getFamilyContactId(), camper.getFamilyContactName(), camper.getEmail(), camper.getPhoneNumber());
+		String updateFamilyContactSql = "UPDATE family_contact SET family_contact_name = ?, email_address = ?, phone_number = ? WHERE family_contact_id = ?";
+		jdbcTemplate.update(updateFamilyContactSql, camper.getFamilyContactName(), camper.getEmail(), camper.getPhoneNumber(), camper.getFamilyContactId());
 
 		
 	}

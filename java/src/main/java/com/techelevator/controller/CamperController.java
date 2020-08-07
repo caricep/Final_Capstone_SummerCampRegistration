@@ -39,6 +39,7 @@ public class CamperController {
 	@RequestMapping(path="/campers", method=RequestMethod.PUT)
 	public void updateCamper(@RequestBody Camper camper) {
 		camperDAO.updateCamper(camper);
+		camperDAO.history("UPDATE", "Camper Updated", dateAndTimeGetter(), "user", 1);
 	}
 	
 	@RequestMapping(path="/campers/address", method=RequestMethod.PUT)

@@ -15,34 +15,92 @@
       <v-card-text>
         <v-form class="px-3">
           <v-row>
-            <v-text-field v-model="camper.firstName" label="Camper First Name"></v-text-field>&nbsp;
-            <v-text-field v-model="camper.lastName" label="Camper Last Name"></v-text-field>
+            <v-text-field
+              v-model="camper.firstName"
+              v-on:change="event => changeHandler(0, 'firstName', event)"
+              label="Camper First Name"
+            ></v-text-field>&nbsp;
+            <v-text-field
+              v-model="camper.lastName"
+              v-on:change="event => changeHandler(1, 'lastName', event)"
+              label="Camper Last Name"
+            ></v-text-field>
           </v-row>
           <v-row>
-            <v-text-field v-model="camper.dateOfBirth" label="Date of Birth"></v-text-field>
+            <v-text-field
+              v-model="camper.dateOfBirth"
+              v-on:change="event => changeHandler(2, 'dateOfBirth', event)"
+              label="Date of Birth"
+            ></v-text-field>
           </v-row>
           <v-row>
-            <v-text-field v-model="camper.streetAddress" label="Street"></v-text-field>&nbsp;
-            <v-text-field v-model="camper.streetAddressLineTwo" label="Street Line Two"></v-text-field>
+            <v-text-field
+              v-model="camper.streetAddress"
+              v-on:change="event => changeHandler(3, 'streetAddress', event)"
+              label="Street"
+            ></v-text-field>&nbsp;
+            <v-text-field
+              v-model="camper.streetAddressLineTwo"
+              v-on:change="event => changeHandler(4, 'streetAddressLineTwo', event)"
+              label="Street Line Two"
+            ></v-text-field>
           </v-row>
           <v-row>
-            <v-text-field v-model="camper.city" label="City"></v-text-field>&nbsp;
-            <v-text-field v-model="camper.stateCode" label="State Code"></v-text-field>&nbsp;
-            <v-text-field v-model="camper.zipCode" label="Zip Code"></v-text-field>
+            <v-text-field
+              v-model="camper.city"
+              v-on:change="event => changeHandler(5, 'city', event)"
+              label="City"
+            ></v-text-field>&nbsp;
+            <v-text-field
+              v-model="camper.stateCode"
+              v-on:change="event => changeHandler(6, 'stateCode', event)"
+              label="State Code"
+            ></v-text-field>&nbsp;
+            <v-text-field
+              v-model="camper.zipCode"
+              v-on:change="event => changeHandler(7, 'zipCode', event)"
+              label="Zip Code"
+            ></v-text-field>
           </v-row>
           <v-row>
-            <v-text-field v-if="camper.paymentStatus" v-model="paid" label="Payment Status"></v-text-field>
-            <v-text-field v-if="!camper.paymentStatus" v-model="unpaid" label="Payment Status"></v-text-field>
+            <v-text-field
+              v-if="camper.paymentStatus"
+              v-model="paid"
+              v-on:change="event => changeHandler(8, 'paymentStatus', event)"
+              label="Payment Status"
+            ></v-text-field>
+            <v-text-field
+              v-if="!camper.paymentStatus"
+              v-model="unpaid"
+              v-on:change="event => changeHandler(8, 'paymentStatus', event)"
+              label="Payment Status"
+            ></v-text-field>
           </v-row>
           <v-row>
-            <v-text-field v-model="camper.familyContactName" label="Emergency Contact"></v-text-field>&nbsp;
-            <v-text-field v-model="camper.email" label="Contact Email"></v-text-field>
+            <v-text-field
+              v-model="camper.familyContactName"
+              v-on:change="event => changeHandler(9, 'familyContactName', event)"
+              label="Emergency Contact"
+            ></v-text-field>&nbsp;
+            <v-text-field
+              v-model="camper.email"
+              v-on:change="event => changeHandler(10, 'email', event)"
+              label="Contact Email"
+            ></v-text-field>
           </v-row>
           <v-row>
-            <v-text-field v-model="camper.phoneNumber" label="Contact Number"></v-text-field>
+            <v-text-field
+              v-model="camper.phoneNumber"
+              v-on:change="event => changeHandler(11, 'phoneNumber', event)"
+              label="Contact Number"
+            ></v-text-field>
           </v-row>
           <v-row>
-            <v-text-field v-model="camper.additionalNotes" label="Camper Notes"></v-text-field>
+            <v-text-field
+              v-model="camper.additionalNotes"
+              v-on:change="event => changeHandler(12, 'additionalNotes', event)"
+              label="Camper Notes"
+            ></v-text-field>
           </v-row>
           <v-row justify="center">
             <v-btn
@@ -61,19 +119,37 @@
 import CamperService from "@/services/CamperService.js";
 export default {
   props: ["camper"],
-  components: [CamperService],
   data() {
     return {
       paid: "Paid",
       unpaid: "Unpaid",
       originalCamper: "",
       editedCamper: "",
-      changesMade: [],
+      changesMade: [
+        { firstName: "" },
+        { lastName: "" },
+        { dateOfBirth: "" },
+        { streetAddress: "" },
+        { streetAddressLineTwo: "" },
+        { city: "" },
+        { stateCode: "" },
+        { zipCode: "" },
+        { paymentStatus: "" },
+        { familyContactName: "" },
+        { email: "" },
+        { phoneNumber: "" },
+        { additionalNotes: "" }
+      ],
       isLoading: false,
-      dialog: false
+      dialog: false,
+      firstName: ""
     };
   },
   methods: {
+    changeHandler(index, propertyName, event) {
+      let propertyToBeChanged = this.changesMade[index];
+      propertyToBeChanged[propertyName] = event;
+    },
     paidOrUnpaid() {
       if (this.editedCamper.paymentStatus) {
         return "Paid";
@@ -106,6 +182,8 @@ export default {
       this.isLoading = true;
       // Submit this editedCamper to the API using a PUT
       CamperService.updateCampers(this.editedCamper);
+      this.$store.commit("SET_CHANGES_MADE", this.changesMade);
+
       setTimeout((this.isLoading = false), 3000);
       this.dialog = false;
       this.$emit("camperEdited");
