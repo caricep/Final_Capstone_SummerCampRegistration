@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS dorm;
 DROP TABLE IF EXISTS camper;
 DROP TABLE IF EXISTS family_contact;
 DROP TABLE IF EXISTS history;
+DROP TABLE IF EXISTS update_status;
 
 CREATE SEQUENCE seq_user_id
   INCREMENT BY 1
@@ -73,12 +74,27 @@ CREATE TABLE dorm (
         CONSTRAINT fk_camper_id FOREIGN KEY (camper_id) REFERENCES camper(camper_id)
  );    
 
- CREATE TABLE history (
+CREATE TABLE update_status (
+
+        update_status_id int primary key,
+        update_status_desc varchar(10)
+); 
+
+INSERT INTO update_status (update_status_id, update_status_desc) VALUES (1, 'Pending');
+INSERT INTO update_status (update_status_id, update_status_desc) VALUES (2, 'Approved');
+INSERT INTO update_status (update_status_id, update_status_desc) VALUES (3, 'Rejected');
+
+
+CREATE TABLE history (
         history_id serial primary key,
         change_type varchar(255),
         change_specifics varchar(255),
         change_date_and_time varchar(80),
-        user_name varchar(255)
+        user_name varchar(255),
+        update_status_id int not null,
+        
+        CONSTRAINT fk_update_status_id FOREIGN KEY (update_status_id) REFERENCES update_status(update_status_id)
 );
+
 
 COMMIT TRANSACTION;
