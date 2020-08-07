@@ -10,7 +10,7 @@ public interface CamperDAO {
 	
 	List<Camper> listAllCampers();
 	void addCamper(Camper camper);
-	void history(String changeType, String changeSpecifics, String changeDateAndTime, String userName);
+	void history(String changeType, String changeSpecifics, String changeDateAndTime, String userName, int updateStatusId);
 	List<History> listAllHistory();
 	void updateCamperAddress(Camper camper);
 	void updateCamperPaymentStatus(Camper camper);

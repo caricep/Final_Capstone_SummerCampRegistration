@@ -57,16 +57,17 @@ public class JdbcCamperDAO implements CamperDAO{
 	}
 	
 	@Override
-	public void history(String changeType, String changeSpecifics, String changeDateAndTime, String userName) {
-		String sql = "INSERT INTO history (history_id, change_type, change_specifics, change_date_and_time, user_name) "
-				+ "VALUES (DEFAULT, ?, ?, ?, ?)";
-		jdbcTemplate.update(sql, changeType, changeSpecifics, changeDateAndTime, userName);
+	public void history(String changeType, String changeSpecifics, String changeDateAndTime, String userName, int updateStatusId) {
+		String sql = "INSERT INTO history (history_id, change_type, change_specifics, change_date_and_time, user_name, update_status_id) "
+				+ "VALUES (DEFAULT, ?, ?, ?, ?, ?)";
+		jdbcTemplate.update(sql, changeType, changeSpecifics, changeDateAndTime, userName, updateStatusId);
 		
 	}
 	
 	@Override
 	public List<History> listAllHistory() {
-		String sql = "SELECT history_id, change_type, change_specifics, change_date_and_time, user_name FROM history";
+		String sql = "SELECT history_id, change_type, change_specifics, change_date_and_time, user_name, history.update_status_id, update_status.update_status_desc "
+				+ "FROM history JOIN update_status ON history.update_status_id = update_status.update_status_id";
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql);
 		
 		List<History> histories = new ArrayList<History>();
@@ -149,6 +150,7 @@ public class JdbcCamperDAO implements CamperDAO{
 		history.setChangeType(historyRows.getString("change_type"));
 		history.setChangeSpecifics(historyRows.getString("change_specifics"));
 		history.setChangeDateAndTime(historyRows.getString("change_date_and_time"));
+		history.setUpdateStatusId(historyRows.getInt("update_status_id"));
 		return history;
 	}
 

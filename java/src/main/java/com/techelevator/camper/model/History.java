@@ -7,7 +7,9 @@ public class History {
 	private String changeSpecifics;
 	private String changeDateAndTime;
 	private String userName;
+	private int updateStatusId;
 
+	
 	public History() {
 		
 	}
@@ -52,6 +54,12 @@ public class History {
 		this.userName = userName;
 	}
 	
-	
+	public int getUpdateStatusId() {
+		return updateStatusId;
+	}
+
+	public void setUpdateStatusId(int updateStatusId) {
+		this.updateStatusId = updateStatusId;
+	}
 	
 }
