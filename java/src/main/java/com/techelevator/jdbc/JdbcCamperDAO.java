@@ -14,7 +14,7 @@ import com.techelevator.camper.model.History;
 import com.techelevator.dao.CamperDAO;
 
 @Component
-public class JdbcCamperDAO implements CamperDAO{
+public class JdbcCamperDAO implements CamperDAO {
 	
 	private JdbcTemplate jdbcTemplate;
 	
@@ -78,6 +78,20 @@ public class JdbcCamperDAO implements CamperDAO{
 		return histories;
 		
 		}
+	
+	@Override
+	public void updateCamper(Camper camper) {
+		String updateCamperSql = "INSERT INTO camper (camper_id, camper_first_name, camper_last_name, date_of_birth, street_address, "
+				+ "street_address_line_two, city, state_code, zip_code, payment_status, family_contact_id, additional_camper_notes) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		jdbcTemplate.update(updateCamperSql, camper.getCamperID(), camper.getFirstName(), camper.getLastName(), camper.getDateOfBirth(), camper.getStreetAddress(), 
+				camper.getStreetAddressLineTwo(), camper.getCity(), camper.getStateCode(), camper.getZipCode(), camper.isPaymentStatus(), camper.getFamilyContact(), camper.getAdditionalNotes());
+		
+		String updateFamilyContactSql = "INSERT INTO family_contact (family_contact_id, family_contact_name, email_address, phone_number) VALUES (?, ?, ?, ?)";
+		jdbcTemplate.update(updateFamilyContactSql, camper.getFamilyContactId(), camper.getFamilyContactName(), camper.getEmail(), camper.getPhoneNumber());
+
+		
+	}
 	
 	@Override
 	public void updateCamperAddress(Camper camper) {
@@ -153,6 +167,8 @@ public class JdbcCamperDAO implements CamperDAO{
 		history.setUpdateStatusId(historyRows.getInt("update_status_id"));
 		return history;
 	}
+
+	
 
 	
 

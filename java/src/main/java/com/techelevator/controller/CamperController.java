@@ -36,6 +36,11 @@ public class CamperController {
 		return camperDAO.listAllCampers();
 	}
 	
+	@RequestMapping(path="/campers", method=RequestMethod.PUT)
+	public void updateCamper(@RequestBody Camper camper) {
+		camperDAO.updateCamper(camper);
+	}
+	
 	@RequestMapping(path="/campers/address", method=RequestMethod.PUT)
 	public void updateCamperAddress(@RequestBody Camper camper) {
 		camperDAO.updateCamperAddress(camper);
