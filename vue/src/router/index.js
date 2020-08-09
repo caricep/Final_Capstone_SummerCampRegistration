@@ -63,7 +63,7 @@ const router = new Router({
 			name: 'upload',
 			component: Upload,
 			meta: {
-				requiresAuth: false
+				requiresAuth: true
 			}
 		},
 		{
@@ -79,7 +79,7 @@ const router = new Router({
 			name: 'campers',
 			component: Campers,
 			meta: {
-				requiresAuth: false
+				requiresAuth: true
 			}
 		},
 		{
