@@ -42,7 +42,7 @@ public class SendGridTemplateExample implements SendGridDAO {
 	    mail.addContent(content);
 
 	    // Load our template ID variable
-	    mail.setTemplateId("d-63c038f49692471fa75ca3f746dd7104");
+	    mail.setTemplateId(templateId);
 	    
 	    // Load in this API key through a .env
 	    SendGrid sg = new SendGrid("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");

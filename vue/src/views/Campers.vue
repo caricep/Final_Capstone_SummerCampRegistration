@@ -188,7 +188,6 @@ export default {
         console.log(response.data);
         this.campers = response.data;
       });
-      this.saveCampers();
     },
     sortByLastName() {
       if (this.lastNameSortDirection == "ascending") {
@@ -221,7 +220,11 @@ export default {
   },
   created() {
     this.getCampers();
-    this.saveCampers();
+  },
+  watch: {
+    campers: function() {
+      this.saveCampers();
+    }
   }
 };
 </script>

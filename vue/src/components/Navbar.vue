@@ -53,7 +53,8 @@ export default {
         { icon: "mdi-folder", text: "My Campers", route: "/campers" },
         { icon: "mdi-account", text: "Team", route: "/team" },
         { icon: "mdi-upload", text: "Upload Campers", route: "/upload" },
-        { icon: "mdi-history", text: "Change History", route: "/history" }
+        { icon: "mdi-history", text: "Change History", route: "/history" },
+        { icon: "mdi-email", text: "Send Emails", route: "/emails" }
       ]
     };
   }

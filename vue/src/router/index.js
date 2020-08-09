@@ -8,6 +8,7 @@ import Upload from '../views/Upload.vue';
 import History from '../views/History.vue';
 import Campers from '../views/Campers.vue';
 import Team from '../views/Team.vue';
+import Email from '../views/Email.vue';
 import store from '../store/index';
 
 Vue.use(Router);
@@ -85,6 +86,14 @@ const router = new Router({
 			path: '/team',
 			name: 'team',
 			component: Team,
+			meta: {
+				requiresAuth: false
+			}
+		},
+		{
+			path: '/emails',
+			name: 'emails',
+			component: Email,
 			meta: {
 				requiresAuth: false
 			}
