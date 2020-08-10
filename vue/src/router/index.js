@@ -71,7 +71,7 @@ const router = new Router({
 			name: 'history',
 			component: History,
 			meta: {
-				requiresAuth: false
+				requiresAuth: true
 			}
 		},
 		{

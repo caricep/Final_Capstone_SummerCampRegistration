@@ -3,6 +3,7 @@ package com.techelevator.controller;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import com.techelevator.camper.model.Camper;
 import com.techelevator.camper.model.TemplateId;
 import com.techelevator.dao.SendGridDAO;
 
+@PreAuthorize("isAuthenticated()")
 @RestController
 @CrossOrigin
 public class SendGridController {

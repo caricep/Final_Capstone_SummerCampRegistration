@@ -1,12 +1,14 @@
 package com.techelevator.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +22,7 @@ import com.techelevator.camper.model.FamilyContact;
 import com.techelevator.camper.model.History;
 import com.techelevator.dao.CamperDAO;
 
-//@PreAuthorize("isAuthenticated()")
+@PreAuthorize("isAuthenticated()")
 @RestController
 @CrossOrigin
 public class CamperController {
@@ -37,50 +39,51 @@ public class CamperController {
 	}
 	
 	@RequestMapping(path="/campers", method=RequestMethod.PUT)
-	public void updateCamper(@RequestBody Camper camper) {
+	public void updateCamper(@RequestBody Camper camper, Principal principal) {
 		camperDAO.updateCamper(camper);
-		camperDAO.history("UPDATE", "Camper Updated", dateAndTimeGetter(), "admin", 1);
+		camperDAO.history("UPDATE", "Camper Updated", dateAndTimeGetter(), principal.getName(), 1);
 	}
 	
 	@RequestMapping(path="/campers/address", method=RequestMethod.PUT)
-	public void updateCamperAddress(@RequestBody Camper camper) {
+	public void updateCamperAddress(@RequestBody Camper camper, Principal principal) {
 		camperDAO.updateCamperAddress(camper);
-		camperDAO.history("UPDATE", "Updated Address", dateAndTimeGetter(), "admin", 1);
+		camperDAO.history("UPDATE", "Updated Address", dateAndTimeGetter(), principal.getName(), 1);
 	}
 	
 	@RequestMapping(path="/campers/payment-status", method=RequestMethod.PUT)
-	public void updateCamperPaymentStatus(@RequestBody Camper camper) {
+	public void updateCamperPaymentStatus(@RequestBody Camper camper, Principal principal) {
 		camperDAO.updateCamperPaymentStatus(camper);
-		camperDAO.history("UPDATE", "Updated Payment Status", dateAndTimeGetter(), "admin", 1);
+		camperDAO.history("UPDATE", "Updated Payment Status", dateAndTimeGetter(), principal.getName(), 1);
 	}
 	
 	@RequestMapping(path="/campers/notes", method=RequestMethod.PUT)
-	public void updateCamperNotes(@RequestBody Camper camper) {
+	public void updateCamperNotes(@RequestBody Camper camper, Principal principal) {
 		camperDAO.updateCamperNotes(camper);
-		camperDAO.history("UPDATE", "Updated Additional Notes", dateAndTimeGetter(), "admin", 1);
+		camperDAO.history("UPDATE", "Updated Additional Notes", dateAndTimeGetter(), principal.getName(), 1);
 	}
 	
 	@RequestMapping(path="/family-contacts/contact-name", method=RequestMethod.PUT)
-	public void updateFamilyContactName(@RequestBody FamilyContact familyContact) {
+	public void updateFamilyContactName(@RequestBody FamilyContact familyContact, Principal principal) {
 		camperDAO.updateFamilyContactName(familyContact);
-		camperDAO.history("UPDATE", "Updated Emergency Contact Name", dateAndTimeGetter(), "admin", 1);
+		camperDAO.history("UPDATE", "Updated Emergency Contact Name", dateAndTimeGetter(), principal.getName(), 1);
 	}
 	
 	@RequestMapping(path="/family-contacts/contact-email", method=RequestMethod.PUT)
-	public void updateFamilyContactEmailAddress(@RequestBody FamilyContact familyContact) {
+	public void updateFamilyContactEmailAddress(@RequestBody FamilyContact familyContact, Principal principal) {
 		camperDAO.updateFamilyContactEmailAddress(familyContact);
-		camperDAO.history("UPDATE", "Updated Emergency Contact Email Address", dateAndTimeGetter(), "admin", 1);
+		camperDAO.history("UPDATE", "Updated Emergency Contact Email Address", dateAndTimeGetter(), principal.getName(), 1);
 	}
 	
 	@RequestMapping(path="/family-contacts/contact-phone", method=RequestMethod.PUT)
-	public void updateFamilyContactPhoneNumber(@RequestBody FamilyContact familyContact) {
+	public void updateFamilyContactPhoneNumber(@RequestBody FamilyContact familyContact, Principal principal) {
 		camperDAO.updateFamilyContactPhoneNumber(familyContact);
-		camperDAO.history("UPDATE", "Updated Emergency Contact Phone Number", dateAndTimeGetter(), "admin", 1);
+		camperDAO.history("UPDATE", "Updated Emergency Contact Phone Number", dateAndTimeGetter(), principal.getName(), 1);
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path="/file-upload", method=RequestMethod.POST)
-	public void uploadFile(@RequestBody MultipartFile file) {
+	public void uploadFile(@RequestBody MultipartFile file, Principal principal) {
         List<Camper> campers = new ArrayList();
 		if (!file.isEmpty()) {
 	        try {
@@ -100,7 +103,7 @@ public class CamperController {
 		for (Camper camper : campers) {
 			camperDAO.addCamper(camper);
 		}
-		camperDAO.history("UPLOAD","Uploaded Campers", dateAndTimeGetter(), "admin", 2);
+		camperDAO.history("UPLOAD","Uploaded Campers", dateAndTimeGetter(), principal.getName(), 2);
 		
 	}
 	
