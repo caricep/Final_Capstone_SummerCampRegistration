@@ -6,6 +6,7 @@ import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
 import com.sendgrid.helpers.mail.objects.Personalization;
 import com.techelevator.camper.model.Camper;
+import com.techelevator.camper.model.TemplateId;
 import com.techelevator.dao.SendGridDAO;
 
 import java.io.IOException;
@@ -19,17 +20,21 @@ public class SendGridTemplateExample implements SendGridDAO {
 	
 //	Personalization p1 = new Personalization();
 	
+	String templateId;
+
 	public SendGridTemplateExample() {
 		
 	}
 
 	@Override
-	public void sendEmails(List<Camper> campers, String templateId) throws IOException {
+	public void sendEmails(List<Camper> campers, TemplateId templateId) throws IOException {
 		// We iterate through our list of campers and add their emails to the personalization object
 //		for(Camper camper : campers) {
 //			Email email = new Email(camper.getEmail());
 //			p1.addTo(email);
 //		}
+		
+		System.out.println(templateId.getTemplateId());
 		
 	    Email from = new Email("littleottersummercamp@gmail.com");
 	    String subject = "I'm replacing the subject tag";
@@ -45,13 +50,14 @@ public class SendGridTemplateExample implements SendGridDAO {
 			Camper camper = campers.get(i);
 			Email email = new Email(camper.getEmail());
 			p1.addTo(email);
+//			p1.addDynamicTemplateData("firstName", camper.getFirstName());
 		    mail.addPersonalization(p1);
 		}
 		
 
 
 	    // Load our template ID variable
-	    mail.setTemplateId("d-63c038f49692471fa75ca3f746dd7104");
+	    mail.setTemplateId(templateId.getTemplateId());
 	    
 	    // Load in this API key through a .env
 	    SendGrid sg = new SendGrid("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");

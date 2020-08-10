@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techelevator.camper.model.Camper;
+import com.techelevator.camper.model.TemplateId;
 import com.techelevator.dao.SendGridDAO;
 
 @RestController
@@ -24,7 +25,8 @@ public class SendGridController {
 	
 	
 	@RequestMapping(path="/emails", method=RequestMethod.POST)
-	public void sendEmails(@RequestBody List<Camper> campers, String templateId) throws IOException {
+	public void sendEmails(@RequestBody List<Camper> campers, TemplateId templateId) throws IOException {
+		
 		sendGridDAO.sendEmails(campers, templateId);
 	}
 

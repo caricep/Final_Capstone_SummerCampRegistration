@@ -6,8 +6,8 @@
       <v-app-bar-nav-icon class="grey--text" @click="drawer = !drawer"></v-app-bar-nav-icon>
       <!-- Using toolbar title will position our spans in the top left of the toolbar -->
       <v-toolbar-title class="text-uppercase grey--text">
-        <span>Camper</span>
-        <span class="font-weight-light">Portal</span>
+        <span>LittleOtter</span>
+        <span class="font-weight-light">&nbsp;Portal</span>
       </v-toolbar-title>
       <!-- We use a spacer to space our sign out button to the far right of the toolbar -->
       <v-spacer></v-spacer>
@@ -22,19 +22,29 @@
     <!-- We use temporary here so that when we click away the nav drawer closes -->
     <v-navigation-drawer app v-model="drawer" temporary class="primary">
       <v-row justify="center">
-        <v-col cols="6">
+        <v-col cols="5">
           <v-avatar size="100">
             <img src="/defaultavatar.png" />
           </v-avatar>
-          <p class="white--text subheading mt-1">Administrator</p>
+          <p class="white--text subheading mt-1 mx-1 text-center text-capitalize">{{userName}}</p>
         </v-col>
       </v-row>
       <v-list>
-        <v-list-item v-for="link in links" :key="link.text" router :to="link.route">
-          <v-list-item-action>
+        <v-list-item
+          v-show="((userRole == 'ROLE_USER') && (link.role == 'ROLE_USER')) || userRole == 'ROLE_ADMIN'"
+          v-for="link in links"
+          :key="link.text"
+          router
+          :to="link.route"
+        >
+          <v-list-item-action
+            v-if="((userRole == 'ROLE_USER') && (link.role == 'ROLE_USER')) || userRole == 'ROLE_ADMIN'"
+          >
             <v-icon class="white--text">{{link.icon}}</v-icon>
           </v-list-item-action>
-          <v-list-item-content>
+          <v-list-item-content
+            v-if="((userRole == 'ROLE_USER') && (link.role == 'ROLE_USER')) || userRole == 'ROLE_ADMIN'"
+          >
             <v-list-item-title class="white--text">{{link.text}}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
@@ -47,16 +57,70 @@
 export default {
   data() {
     return {
+      userRole: "",
+      userName: "",
       drawer: false,
       links: [
-        { icon: "mdi-view-dashboard", text: "Dashboard", route: "/" },
-        { icon: "mdi-folder", text: "My Campers", route: "/campers" },
-        { icon: "mdi-account", text: "Team", route: "/team" },
-        { icon: "mdi-upload", text: "Upload Campers", route: "/upload" },
-        { icon: "mdi-history", text: "Change History", route: "/history" },
-        { icon: "mdi-email", text: "Send Emails", route: "/emails" }
+        {
+          icon: "mdi-view-dashboard",
+          text: "Dashboard",
+          route: "/",
+          role: "ROLE_USER"
+        },
+        {
+          icon: "mdi-folder",
+          text: "My Campers",
+          route: "/campers",
+          role: "ROLE_USER"
+        },
+        {
+          icon: "mdi-account",
+          text: "Team",
+          route: "/team",
+          role: "ROLE_USER"
+        },
+        {
+          icon: "mdi-upload",
+          text: "Add Campers",
+          route: "/upload",
+          role: ""
+        },
+        {
+          icon: "mdi-history",
+          text: "Change History",
+          route: "/history",
+          role: "ROLE_USER"
+        },
+        {
+          icon: "mdi-email",
+          text: "Send Emails",
+          route: "/emails",
+          role: "ROLE_USER"
+        },
+        {
+          icon: "mdi-account-plus",
+          text: "Registration",
+          route: "/register",
+          role: ""
+        }
       ]
     };
+  },
+  methods: {
+    getRole() {
+      this.userRole = this.$store.state.user.authorities[0].name;
+      this.userName = this.$store.state.user.username;
+    }
+  },
+  created() {
+    this.getRole();
+  },
+  computed: {
+    activeLinks: function() {
+      return this.links.filter(function(link) {
+        return link.admin;
+      });
+    }
   }
 };
 </script>

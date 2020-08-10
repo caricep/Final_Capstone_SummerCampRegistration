@@ -11,8 +11,8 @@ public class SendGridEmailExample {
 
 	public static void main(String[] args) throws IOException {
 	    Email from = new Email("littleottersummercamp@gmail.com");
-	    String subject = "Sending with SendGrid is Fun";
-	    Email to = new Email("jearnold22@gmail.com");
+	    String subject = "FLEXXXXXXXIN";
+	    Email to = new Email("kayla.bufalini@gmail.com");
 	    Content content = new Content("text/plain", "and easy to do anywhere, even with Java");
 	    Mail mail = new Mail(from, subject, to, content);
 	    mail.setTemplateId("d-63c038f49692471fa75ca3f746dd7104");

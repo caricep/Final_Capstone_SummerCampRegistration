@@ -47,7 +47,7 @@ const router = new Router({
 			name: 'logout',
 			component: Logout,
 			meta: {
-				requiresAuth: false
+				requiresAuth: true
 			}
 		},
 		{
@@ -55,7 +55,7 @@ const router = new Router({
 			name: 'register',
 			component: Register,
 			meta: {
-				requiresAuth: false
+				requiresAuth: true
 			}
 		},
 		{
@@ -63,7 +63,7 @@ const router = new Router({
 			name: 'upload',
 			component: Upload,
 			meta: {
-				requiresAuth: false
+				requiresAuth: true
 			}
 		},
 		{
@@ -79,7 +79,7 @@ const router = new Router({
 			name: 'campers',
 			component: Campers,
 			meta: {
-				requiresAuth: false
+				requiresAuth: true
 			}
 		},
 		{
@@ -87,7 +87,7 @@ const router = new Router({
 			name: 'team',
 			component: Team,
 			meta: {
-				requiresAuth: false
+				requiresAuth: true
 			}
 		},
 		{
@@ -95,7 +95,7 @@ const router = new Router({
 			name: 'emails',
 			component: Email,
 			meta: {
-				requiresAuth: false
+				requiresAuth: true
 			}
 		}
 	]
