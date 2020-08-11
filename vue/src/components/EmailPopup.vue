@@ -1,7 +1,7 @@
 <template v-slot:activator="{ on: editsCamper }">
   <v-dialog v-model="dialog" width="700" :email="email">
     <template v-slot:activator="{on: editsCamper}">
-      <v-btn text color="red lighten-2" dark small v-on="editsCamper">Send Email</v-btn>
+      <v-btn color="red lighten-2" dark small v-on="editsCamper">Send Email</v-btn>
     </template>
     <v-card>
       <v-card-title class="headline grey lighten-2 center">{{email.name}} Email</v-card-title>
@@ -23,7 +23,7 @@
             </v-col>
             <v-btn
               class="success my-4"
-              @click="sendEmail(email.template)"
+              @click="sendEmail(email.template, email.name)"
               :loading="isLoading"
             >SUBMIT</v-btn>
           </v-row>
@@ -45,12 +45,25 @@ export default {
     };
   },
   methods: {
-    sendEmail(templateId) {
+    sendEmail(templateId, emailName) {
       console.log(templateId);
-      if (this.campersToEmail.length > 0) {
-        EmailService.sendEmail(this.campersToEmail, templateId);
+      console.log(emailName);
+      if (emailName == "Welcome") {
+        if (this.campersToEmail.length > 0) {
+          EmailService.sendWelcome(this.campersToEmail, templateId);
+        }
+      } else if (emailName == "Invoice") {
+        console.log("We made it");
+        if (this.campersToEmail.length > 0) {
+          EmailService.sendInvoice(this.campersToEmail, templateId);
+        }
+      } else if (emailName == "News") {
+        if (this.campersToEmail.length > 0) {
+          EmailService.sendNews(this.campersToEmail, templateId);
+        }
       }
       this.dialog = false;
+      this.$emit("emailSent");
     }
   },
   created() {

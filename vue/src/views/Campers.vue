@@ -92,7 +92,7 @@
             <div class="right">
               <v-chip
                 small
-                :color="`${camper.paymentStatus == true ? '#76ba1b' : '#ff9800'}`"
+                :color="`${camper.paymentStatus == true ? '#3B6B35' : '#ff4900'}`"
                 class="white--text caption my-2"
               >{{camper.paymentStatus == true ? 'Paid' : 'Unpaid'}}</v-chip>
             </div>
@@ -203,11 +203,11 @@ export default {
 
 <style>
 .camper.Paid {
-  border-left: 4px solid #76ba1b;
+  border-left: 4px solid #3b6b35;
 }
 
 .camper.Unpaid {
-  border-left: 4px solid #ff9800;
+  border-left: 4px solid #ff4900;
 }
 
 .searchRow {

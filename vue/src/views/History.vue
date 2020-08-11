@@ -19,7 +19,7 @@
             <div class="caption grey--text">Change Type</div>
             <v-chip
               small
-              :color="`${history.changeType == 'UPLOAD' ? '#3c99dc' : '#ff9800'}`"
+              :color="`${history.changeType == 'UPLOAD' ? '#3c99dc' : '#ef8f00'}`"
               class="white--text caption my-2"
             >{{history.changeType}}</v-chip>
           </v-col>
@@ -139,6 +139,6 @@ export default {
   border-left: 4px solid #3c99dc;
 }
 .history.UPDATE {
-  border-left: 4px solid #ff9800;
+  border-left: 4px solid #ef8f00;
 }
 </style>

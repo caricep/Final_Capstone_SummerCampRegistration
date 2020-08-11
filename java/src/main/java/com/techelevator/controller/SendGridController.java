@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techelevator.camper.model.Camper;
-import com.techelevator.camper.model.TemplateId;
+import com.techelevator.camper.model.Template;
 import com.techelevator.dao.SendGridDAO;
 
 @PreAuthorize("isAuthenticated()")
@@ -26,10 +26,23 @@ public class SendGridController {
 	}
 	
 	
-	@RequestMapping(path="/emails", method=RequestMethod.POST)
-	public void sendEmails(@RequestBody List<Camper> campers, TemplateId templateId) throws IOException {
-		
-		sendGridDAO.sendEmails(campers, templateId);
+	@RequestMapping(path="/emails/welcome", method=RequestMethod.POST)
+	public void sendWelcome(@RequestBody List<Camper> campers, Template templateId) throws IOException {
+		System.out.println(templateId.getTemplate());
+		sendGridDAO.sendWelcome(campers, templateId);
 	}
+	
+	@RequestMapping(path="/emails/invoice", method=RequestMethod.POST)
+	public void sendInvoice(@RequestBody List<Camper> campers, Template templateId) throws IOException {
+		System.out.println(templateId.getTemplate());
+		sendGridDAO.sendInvoice(campers, templateId);
+	}
+	
+	@RequestMapping(path="/emails/newsletter", method=RequestMethod.POST)
+	public void sendNews(@RequestBody List<Camper> campers, Template templateId) throws IOException {
+		System.out.println(templateId.getTemplate());
+		sendGridDAO.sendNews(campers, templateId);
+	}
+	
 
 }

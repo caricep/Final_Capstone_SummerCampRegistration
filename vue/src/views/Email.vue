@@ -1,8 +1,12 @@
 <template>
   <div class="team">
-    <h1 class="subtitle-1 grey--text">Team</h1>
+    <h1 class="subtitle-1 grey--text">Emails</h1>
 
     <v-container class="my-10 mx-16">
+      <v-snackbar v-model="snackbar" :timeout="4000" top color="success">
+        <span class="font-weight-bold">Email Successfully Sent!</span>
+        <v-btn class="mx-4" text color="white" @click="snackbar=false">Close</v-btn>
+      </v-snackbar>
       <v-row justify="center">
         <v-col
           cols="12"
@@ -17,10 +21,7 @@
         >
           <v-card>
             <v-responsive class="pt-4">
-              <v-img contain :src="email.avatar"></v-img>
-              <!-- <v-avatar tile width="250" size="400">
-                <v-img :src="email.avatar" alt="avatar"></v-img>
-              </v-avatar>-->
+              <v-img contain max-height="500px" :src="email.avatar"></v-img>
             </v-responsive>
             <v-card-text>
               <div class="subheading">{{email.name}} Email</div>
@@ -28,11 +29,7 @@
             </v-card-text>
             <v-card-actions>
               <v-row justify="center">
-                <!-- <v-btn text color="grey" :click="`${email.handler}`">
-                  <v-icon small left>mdi-email</v-icon>
-                  <span>Send {{email.name}}</span>
-                </v-btn>-->
-                <Email-Popup :email="email" />
+                <Email-Popup :email="email" @emailSent="snackbar=true" />
               </v-row>
             </v-card-actions>
           </v-card>
@@ -52,13 +49,13 @@ export default {
   },
   data() {
     return {
+      snackbar: false,
       campers: [],
       emails: [
         {
           name: "Welcome",
           role: "Initial Welcome Email",
           avatar: "/LittleOtterWelcomeEmail.png",
-          handler: "sendEmail()",
           template: "d-63c038f49692471fa75ca3f746dd7104"
         },
         {
