@@ -6,37 +6,56 @@
         <span class="font-weight-bold">Camper Successfully Edited!</span>
         <v-btn class="mx-4" text color="white" @click="snackbar=false">Close</v-btn>
       </v-snackbar>
-      <v-row align="end" class="ma-0 pa-0">
-        <v-tooltip top>
-          <template v-slot:activator="{ on: sortNames }">
-            <v-btn small text color="grey" @click="sortByLastName()" v-on="sortNames">
-              <v-icon left small>mdi-account</v-icon>
-              <span class="caption text-lowercase">By Camper Name</span>
-            </v-btn>
-          </template>
-          <span>Sort By Camper</span>
-        </v-tooltip>
-        <!-- <v-btn small text color="grey" @click="sortBy('dateOfBirth')">
+      <v-layout>
+        <v-row align="end" class>
+          <v-tooltip top>
+            <template v-slot:activator="{ on: sortNames }">
+              <v-btn
+                small
+                text
+                color="grey"
+                class="mb-1"
+                @click="sortByLastName()"
+                v-on="sortNames"
+              >
+                <v-icon left small>mdi-account</v-icon>
+                <span class="caption text-lowercase">By Camper Name</span>
+              </v-btn>
+            </template>
+            <span>Sort By Camper</span>
+          </v-tooltip>
+          <!-- <v-btn small text color="grey" @click="sortBy('dateOfBirth')">
           <v-icon left small>mdi-calendar</v-icon>
           <span class="caption text-lowercase">By Date of Birth</span>
-        </v-btn>-->
-        <v-tooltip top>
-          <template v-slot:activator="{ on: sortPayments }">
-            <v-btn small text color="grey" @click="sortByPaymentStatus()" v-on="sortPayments">
-              <v-icon left small>mdi-checkbox-marked-circle</v-icon>
-              <span class="caption text-lowercase">By Payment Status</span>
-            </v-btn>
-          </template>
-          <span>Sort By Payment Status</span>
-        </v-tooltip>
-        <v-text-field
-          label="Search campers..."
-          class="ma-0 pa-0 searchRow"
-          v-model="search"
-          solo
-          clearable
-        ></v-text-field>
-      </v-row>
+          </v-btn>-->
+          <v-tooltip top>
+            <template v-slot:activator="{ on: sortPayments }">
+              <v-btn
+                small
+                text
+                color="grey"
+                class="mb-1"
+                @click="sortByPaymentStatus()"
+                v-on="sortPayments"
+              >
+                <v-icon left small>mdi-checkbox-marked-circle</v-icon>
+                <span class="caption text-lowercase">By Payment Status</span>
+              </v-btn>
+            </template>
+            <span>Sort By Payment Status</span>
+          </v-tooltip>
+          <v-text-field
+            label="Search campers..."
+            class="shrink mb-1"
+            hide-details
+            dense
+            flat
+            v-model="search"
+            solo
+            clearable
+          ></v-text-field>
+        </v-row>
+      </v-layout>
 
       <v-card flat v-for="camper in filteredCampers" :key="camper.camperID">
         <v-row
@@ -192,8 +211,8 @@ export default {
 }
 
 .searchRow {
-  height: 40px;
+  /* height: 40px;
   font-size: 30px;
-  transform: scale(0.5, 0.5) translateX(50%);
+  transform: scale(0.5, 0.5) translateX(50%); */
 }
 </style>
