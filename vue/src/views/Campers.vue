@@ -6,7 +6,7 @@
         <span class="font-weight-bold">Camper Successfully Edited!</span>
         <v-btn class="mx-4" text color="white" @click="snackbar=false">Close</v-btn>
       </v-snackbar>
-      <v-row class="mb-3">
+      <v-row align="end" class="ma-0 pa-0">
         <v-tooltip top>
           <template v-slot:activator="{ on: sortNames }">
             <v-btn small text color="grey" @click="sortByLastName()" v-on="sortNames">
@@ -29,9 +29,16 @@
           </template>
           <span>Sort By Payment Status</span>
         </v-tooltip>
+        <v-text-field
+          label="Search campers..."
+          class="ma-0 pa-0 searchRow"
+          v-model="search"
+          solo
+          clearable
+        ></v-text-field>
       </v-row>
 
-      <v-card flat v-for="camper in campers" :key="camper.camperID">
+      <v-card flat v-for="camper in filteredCampers" :key="camper.camperID">
         <v-row
           no-gutters
           :class="`pa-3 camper ${camper.paymentStatus == true ? 'Paid' : 'Unpaid'}`"
@@ -108,73 +115,19 @@ export default {
     // CamperList
     Popup
   },
-  computed: {},
+  computed: {
+    filteredCampers: function() {
+      return this.campers.filter(camper => {
+        return camper.firstName.toLowerCase().match(this.search.toLowerCase());
+      });
+    }
+  },
   data() {
     return {
       campers: [],
+      search: "",
       lastNameSortDirection: "ascending",
       paymentStatusSortDirection: "ascending",
-      stateCodes: [
-        "AL",
-        "AK",
-        "AS",
-        "AZ",
-        "AR",
-        "CA",
-        "CO",
-        "CT",
-        "DE",
-        "DC",
-        "FM",
-        "FL",
-        "GA",
-        "GU",
-        "HI",
-        "ID",
-        "IL",
-        "IN",
-        "IA",
-        "KS",
-        "KY",
-        "LA",
-        "ME",
-        "MH",
-        "MD",
-        "MA",
-        "MI",
-        "MN",
-        "MS",
-        "MO",
-        "MT",
-        "NE",
-        "NV",
-        "NH",
-        "NJ",
-        "NM",
-        "NY",
-        "NC",
-        "ND",
-        "MP",
-        "OH",
-        "OK",
-        "OR",
-        "PW",
-        "PA",
-        "PR",
-        "RI",
-        "SC",
-        "SD",
-        "TN",
-        "TX",
-        "UT",
-        "VT",
-        "VI",
-        "VA",
-        "WA",
-        "WV",
-        "WI",
-        "WY"
-      ],
       snackbar: false,
       camperUpdated: false
     };
@@ -236,5 +189,11 @@ export default {
 
 .camper.Unpaid {
   border-left: 4px solid #ff9800;
+}
+
+.searchRow {
+  height: 40px;
+  font-size: 30px;
+  transform: scale(0.5, 0.5) translateX(50%);
 }
 </style>

@@ -17,9 +17,10 @@
         >
           <v-card>
             <v-responsive class="pt-4">
-              <v-avatar tile width="250" size="400">
+              <v-img contain :src="email.avatar"></v-img>
+              <!-- <v-avatar tile width="250" size="400">
                 <v-img :src="email.avatar" alt="avatar"></v-img>
-              </v-avatar>
+              </v-avatar>-->
             </v-responsive>
             <v-card-text>
               <div class="subheading">{{email.name}} Email</div>
