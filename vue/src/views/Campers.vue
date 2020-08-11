@@ -6,6 +6,11 @@
         <span class="font-weight-bold">Camper Successfully Edited!</span>
         <v-btn class="mx-4" text color="white" @click="snackbar=false">Close</v-btn>
       </v-snackbar>
+      <!-- <div
+        class="alert alert-success grey--text"
+        role="alert"
+        v-if="this.$route.query.registration"
+      >Thank you for registering, please sign in.</div>-->
       <v-layout>
         <v-row align="end" class>
           <v-tooltip top>
@@ -29,6 +34,22 @@
           <span class="caption text-lowercase">By Date of Birth</span>
           </v-btn>-->
           <v-tooltip top>
+            <template v-slot:activator="{ on: birthDate }">
+              <v-btn
+                small
+                text
+                color="grey"
+                class="mb-1"
+                @click="sortByDateOfBirth()"
+                v-on="birthDate"
+              >
+                <v-icon left small>mdi-cake</v-icon>
+                <span class="caption text-lowercase">By Date of Birth</span>
+              </v-btn>
+            </template>
+            <span>Sort By Date of Birth</span>
+          </v-tooltip>
+          <v-tooltip top>
             <template v-slot:activator="{ on: sortPayments }">
               <v-btn
                 small
@@ -44,8 +65,9 @@
             </template>
             <span>Sort By Payment Status</span>
           </v-tooltip>
+
           <v-text-field
-            label="Search campers..."
+            label="Search camper name..."
             class="shrink mb-1"
             hide-details
             dense
@@ -137,7 +159,9 @@ export default {
   computed: {
     filteredCampers: function() {
       return this.campers.filter(camper => {
-        return camper.firstName.toLowerCase().match(this.search.toLowerCase());
+        let fullName =
+          camper.firstName.toLowerCase() + " " + camper.lastName.toLowerCase();
+        return fullName.match(this.search.toLowerCase());
       });
     }
   },
@@ -147,6 +171,7 @@ export default {
       search: "",
       lastNameSortDirection: "ascending",
       paymentStatusSortDirection: "ascending",
+      dateOfBirthSortDirection: "ascending",
       snackbar: false,
       camperUpdated: false
     };
@@ -187,6 +212,19 @@ export default {
           a.paymentStatus < b.paymentStatus ? -1 : 1
         );
         this.paymentStatusSortDirection = "ascending";
+      }
+    },
+    sortByDateOfBirth() {
+      if (this.dateOfBirthSortDirection == "ascending") {
+        this.campers.sort((a, b) =>
+          // Sort compares items next to eachother in an array
+          // We'll get a 1 if we need to change the order, -1 if we don't need to change the order
+          a.dateOfBirth < b.dateOfBirth ? 1 : -1
+        );
+        this.dateOfBirthSortDirection = "descending";
+      } else {
+        this.campers.sort((a, b) => (a.dateOfBirth < b.dateOfBirth ? -1 : 1));
+        this.dateOfBirthSortDirection = "ascending";
       }
     }
   },

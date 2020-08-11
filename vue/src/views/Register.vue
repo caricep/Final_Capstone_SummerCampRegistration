@@ -1,49 +1,89 @@
 <template>
-  <div id="register" class="text-center">
-    <v-container>
-      <v-radio-group>
-        <v-radio label="User" @change="registerFlipUser()"></v-radio>
-        <v-radio label="Admin" @change="registerFlipAdmin()"></v-radio>
-      </v-radio-group>
-    </v-container>
-    <form class="form-register" @submit.prevent="register">
-      <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
-      <div
-        class="alert alert-danger"
-        role="alert"
-        v-if="registrationErrors"
-      >{{ registrationErrorMsg }}</div>
-      <label for="username" class="sr-only">Username</label>
-      <input
-        type="text"
-        id="username"
-        class="form-control"
-        placeholder="Username"
-        v-model="user.username"
-        required
-        autofocus
-      />
-      <label for="password" class="sr-only">Password</label>
-      <input
-        type="password"
-        id="password"
-        class="form-control"
-        placeholder="Password"
-        v-model="user.password"
-        required
-      />
-      <input
-        type="password"
-        id="confirmPassword"
-        class="form-control"
-        placeholder="Confirm Password"
-        v-model="user.confirmPassword"
-        required
-      />
-      <router-link :to="{ name: 'login' }">Have an account?</router-link>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
-    </form>
-  </div>
+  <v-container class="fill-height" fluid>
+    <div
+      class="alert alert-danger"
+      role="alert"
+      v-if="registrationErrors"
+    >{{ registrationErrorMsg }}</div>
+    <v-row align="center" justify="center">
+      <v-col cols="12" sm="8" md="4">
+        <v-card class="elevation-12">
+          <v-toolbar color="primary" dark flat>
+            <v-toolbar-title>Create Account</v-toolbar-title>
+            <v-spacer></v-spacer>
+          </v-toolbar>
+          <v-radio-group :mandatory="true" row hide-details>
+            <v-spacer></v-spacer>
+            <span class="grey--text">Select a user type:&nbsp;</span>
+            <v-radio label="User" @change="registerFlipUser()"></v-radio>
+            <v-radio label="Admin" @change="registerFlipAdmin()"></v-radio>
+          </v-radio-group>
+          <v-card-text>
+            <v-form v-if="userRegister == true">
+              <v-text-field
+                label="Login"
+                name="login"
+                id="username"
+                prepend-icon="mdi-account"
+                type="text"
+                v-model="user.username"
+              ></v-text-field>
+              <v-text-field
+                id="confirmPassword"
+                label="Password"
+                name="password"
+                prepend-icon="mdi-lock"
+                type="password"
+                required
+                v-model="user.password"
+              ></v-text-field>
+              <v-text-field
+                id="password"
+                label="Confirm Password"
+                name="password"
+                prepend-icon="mdi-lock"
+                type="password"
+                required
+                v-model="user.confirmPassword"
+              ></v-text-field>
+            </v-form>
+            <v-form v-if="adminRegister == true">
+              <v-text-field
+                label="Login"
+                name="login"
+                id="username"
+                prepend-icon="mdi-account"
+                type="text"
+                v-model="admin.username"
+              ></v-text-field>
+              <v-text-field
+                id="confirmPassword"
+                label="Password"
+                name="password"
+                prepend-icon="mdi-lock"
+                type="password"
+                required
+                v-model="admin.password"
+              ></v-text-field>
+              <v-text-field
+                id="password"
+                label="Confirm Password"
+                name="password"
+                prepend-icon="mdi-lock"
+                type="password"
+                required
+                v-model="admin.confirmPassword"
+              ></v-text-field>
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn @click="registerUser()" color="primary">Submit</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>

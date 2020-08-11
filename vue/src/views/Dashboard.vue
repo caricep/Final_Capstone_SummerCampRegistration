@@ -20,7 +20,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      snackbar: false
+    };
+  }
+};
 </script>
 
 <style>

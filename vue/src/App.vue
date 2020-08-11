@@ -9,7 +9,7 @@
     <!-- Within v-main is where we'll place all of our content for the page -->
     <!-- Using mx-4, were using margin on the x axis with a strength of 4 -->
     <v-main class="grey lighten-4">
-      <Navbar class="mx-4" />
+      <Navbar v-if="!this.$route.query.login" class="mx-4" />
       <v-container class="mx-5 mb-5">
         <router-view></router-view>
       </v-container>
