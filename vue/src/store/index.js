@@ -21,7 +21,8 @@ export default new Vuex.Store({
 		token: currentToken || '',
 		user: currentUser || {},
 		campers: [],
-		changesMade: []
+		changesMade: [],
+		dorm1: []
 	},
 	mutations: {
 		SET_AUTH_TOKEN(state, token) {
@@ -38,6 +39,13 @@ export default new Vuex.Store({
 		SET_USER(state, user) {
 			state.user = user;
 			localStorage.setItem('user', JSON.stringify(user));
+		},
+		SET_DORM(state, { camper, dormID }) {
+			console.log(camper);
+			console.log(dormID);
+			if (dormID == 1) {
+				state.dorm1.push(camper);
+			}
 		},
 		LOGOUT(state) {
 			localStorage.removeItem('token');

@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Dashboard from '../views/Dashboard.vue';
+import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
 import Logout from '../views/Logout.vue';
 import Register from '../views/Register.vue';
@@ -9,6 +9,7 @@ import History from '../views/History.vue';
 import Campers from '../views/Campers.vue';
 import Team from '../views/Team.vue';
 import Email from '../views/Email.vue';
+import TestBoard from '../views/SecondTestBoard.vue';
 import store from '../store/index';
 
 Vue.use(Router);
@@ -28,10 +29,12 @@ const router = new Router({
 	routes: [
 		{
 			path: '/',
-			name: 'dashboard',
-			component: Dashboard,
+			name: 'home',
+			component: Home,
 			meta: {
-				requiresAuth: true
+				requiresAuth: false,
+				hideNavigation: true,
+				homePage: true
 			}
 		},
 		{
@@ -39,7 +42,8 @@ const router = new Router({
 			name: 'login',
 			component: Login,
 			meta: {
-				requiresAuth: false
+				requiresAuth: false,
+				hideNavigation: true
 			}
 		},
 		{
@@ -97,6 +101,14 @@ const router = new Router({
 			meta: {
 				requiresAuth: true
 			}
+		},
+		{
+			path: '/testboard',
+			name: 'testboard',
+			component: TestBoard,
+			meta: {
+				requiresAuth: true
+			}
 		}
 	]
 });
@@ -105,6 +117,9 @@ router.beforeEach((to, from, next) => {
 	// Determine if the route requires Authentication
 	const requiresAuth = to.matched.some((x) => x.meta.requiresAuth);
 
+	// if (!requiresAuth) {
+	// 	next('/home');
+	// }
 	// If it does and they are not logged in, send the user to "/login"
 	if (requiresAuth && store.state.token === '') {
 		next('/login');

@@ -102,6 +102,12 @@ export default {
           text: "Registration",
           route: "/register",
           role: ""
+        },
+        {
+          icon: "mdi-account-switch",
+          text: "Assign Dorms",
+          route: "/testboard",
+          role: ""
         }
       ]
     };
