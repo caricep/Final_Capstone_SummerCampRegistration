@@ -17,7 +17,7 @@
           <div class="grey--text">
             <span class="text-center">How To Add Campers:</span>
             <br />
-            <span>1. Make sure the file you want to upload is a .csv file. See Administrator for file template.</span>
+            <span>1. Make sure the file you want to upload is a .csv file. See work resources for file template.</span>
             <br />
             <span>2. Click the paperclip icon and select your .csv file from your computer.</span>
             <br />
