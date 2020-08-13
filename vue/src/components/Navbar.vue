@@ -80,10 +80,10 @@ export default {
           role: ""
         },
         {
-          icon: "mdi-history",
-          text: "Change History",
-          route: "/history",
-          role: "ROLE_USER"
+          icon: "mdi-account-switch",
+          text: "Assign Dorms",
+          route: "/dormassignment",
+          role: ""
         },
         {
           icon: "mdi-email",
@@ -92,15 +92,16 @@ export default {
           role: "ROLE_USER"
         },
         {
-          icon: "mdi-account-plus",
-          text: "Registration",
-          route: "/register",
-          role: ""
+          icon: "mdi-history",
+          text: "Change History",
+          route: "/history",
+          role: "ROLE_USER"
         },
+
         {
-          icon: "mdi-account-switch",
-          text: "Assign Dorms",
-          route: "/dormassignment",
+          icon: "mdi-account-plus",
+          text: "User Registration",
+          route: "/register",
           role: ""
         }
       ]

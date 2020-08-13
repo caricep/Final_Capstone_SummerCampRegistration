@@ -63,6 +63,12 @@ export default {
           role: "Camp Invoice",
           avatar: "/LittleOtterInvoice.png",
           template: "d-47c5b37df1bd47c8bc6b77bbd4908e05"
+        },
+        {
+          name: "News Letter",
+          role: "Our Weekly Little Otter News",
+          avatar: "/Newsletter.png",
+          template: "d-ebbdf134325e4a8182b03282ad577e22"
         }
       ]
     };

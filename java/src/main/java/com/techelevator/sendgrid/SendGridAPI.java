@@ -15,13 +15,13 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SendGridTemplateExample implements SendGridDAO {
+public class SendGridAPI implements SendGridDAO {
 	
 //	Personalization p1 = new Personalization();
 	
 	String templateId;
 
-	public SendGridTemplateExample() {
+	public SendGridAPI() {
 		
 	}
 
@@ -149,7 +149,7 @@ public class SendGridTemplateExample implements SendGridDAO {
 
 
 	    // Load our template ID variable
-	    mail.setTemplateId("d-63c038f49692471fa75ca3f746dd7104");
+	    mail.setTemplateId("d-ebbdf134325e4a8182b03282ad577e22");
 	    
 	    // Load in this API key through a .env
 	    SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
