@@ -82,7 +82,7 @@ export default {
         {
           icon: "mdi-account-switch",
           text: "Assign Dorms",
-          route: "/dormassignment",
+          route: "/dormassignments",
           role: ""
         },
         {

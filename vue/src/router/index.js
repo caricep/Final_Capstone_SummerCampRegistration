@@ -103,8 +103,8 @@ const router = new Router({
 			}
 		},
 		{
-			path: '/dormassignment',
-			name: 'dormassignment',
+			path: '/dormassignments',
+			name: 'dormassignments',
 			component: DormAssignment,
 			meta: {
 				requiresAuth: true
