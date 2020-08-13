@@ -1,0 +1,7 @@
+camper_first_name,camper_last_name,date_of_birth,street_address,street_address_line_two,city,state_code,zip_code,payment_status,family_contact,additional_camper_notes,family_contact_id,family_contact_name,email_address,phone_number
+Timmy,Jones,2012-12-03,123 Main St,Suite 400,Columbus,OH,43218,Paid,1,Timmy is allergic to peanut butter,1,Tommy Jones,carice.cp@gmail.com,6145655555
+Eliza,Smith,2015-03-20,456 7th Ave,,Columbus,OH,43221,Paid,2,,2,John Smith,jearnold22@gmail.com,6147877777
+Johnny,Carson,2013-04-01,789 10th St,,Columbus,OH,43035,Unpaid,3,,3,Tammy Carson,littleotterfamily2020@gmail.com,6141234555
+Allen,Roberts,2012-01-01,329 Rainforest Ln,,Columbus,OH,43212,Unpaid,4,,4,Amy Roberts,lingyi1717@gmail.com,6148083476
+Ava,Roberts,2012-01-01,329 Rainforest Ln,,Columbus,OH,43212,Unpaid,4,,4,Amy Roberts,lingyi1717@gmail.com,6148083476
+Sara,Thompson,2013-02-14,4288 Riverview Dr,Suite 302,Columbus,OH,43056,Paid,5,Sarah needs her teddy bear Benji to go to sleep,5,Benjamin Thompson,ldlexyfy@sharklasers.com,6143879958

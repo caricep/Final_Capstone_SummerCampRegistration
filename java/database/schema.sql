@@ -68,11 +68,11 @@ CREATE TABLE camper_family (
 CREATE TABLE dorm (
  
         dorm_id serial primary key,
-        dorm_name varchar(30) not null,
-        camper_id int not null,       
-        
-        CONSTRAINT fk_camper_id FOREIGN KEY (camper_id) REFERENCES camper(camper_id)
- );    
+        dorm_name varchar(30) not null
+ );
+
+INSERT INTO dorm (dorm_id, dorm_name) VALUES (DEFAULT, 'Aquaotters');
+INSERT INTO dorm (dorm_id, dorm_name) VALUES (DEFAULT, 'Astronotters');    
 
 CREATE TABLE update_status (
 
