@@ -65,7 +65,7 @@ export default {
           template: "d-47c5b37df1bd47c8bc6b77bbd4908e05"
         },
         {
-          name: "News Letter",
+          name: "News",
           role: "Our Weekly Little Otter News",
           avatar: "/Newsletter.png",
           template: "d-ebbdf134325e4a8182b03282ad577e22"
@@ -73,14 +73,7 @@ export default {
       ]
     };
   },
-  methods: {
-    sendEmail() {
-      EmailService.sendEmail(
-        this.campers,
-        "d-63c038f49692471fa75ca3f746dd7104"
-      );
-    }
-  },
+  methods: {},
   created() {
     this.campers = this.$store.state.campers;
   }
