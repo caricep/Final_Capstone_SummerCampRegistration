@@ -10,7 +10,7 @@
     <!-- Using mx-4, were using margin on the x axis with a strength of 4 -->
     <v-main :class="this.$route.meta.homePage ? 'homepage' : 'grey lighten-4'">
       <Navbar v-if="!this.$route.meta.hideNavigation" class="mx-4" />
-      <v-container :class="{'mx-5 mb-5' : !this.$route.meta.homePage }">
+      <v-container :class="{'mx-5' : !this.$route.meta.homePage }">
         <router-view></router-view>
       </v-container>
     </v-main>
