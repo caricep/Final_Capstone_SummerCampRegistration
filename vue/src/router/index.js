@@ -9,7 +9,7 @@ import History from '../views/History.vue';
 import Campers from '../views/Campers.vue';
 import Team from '../views/Team.vue';
 import Email from '../views/Email.vue';
-import TestBoard from '../views/SecondTestBoard.vue';
+import DormAssignment from '../views/DormAssignment.vue';
 import store from '../store/index';
 
 Vue.use(Router);
@@ -103,9 +103,9 @@ const router = new Router({
 			}
 		},
 		{
-			path: '/testboard',
-			name: 'testboard',
-			component: TestBoard,
+			path: '/dormassignment',
+			name: 'dormassignment',
+			component: DormAssignment,
 			meta: {
 				requiresAuth: true
 			}

@@ -62,12 +62,6 @@ export default {
       drawer: false,
       links: [
         {
-          icon: "mdi-view-dashboard",
-          text: "Dashboard",
-          route: "/",
-          role: "ROLE_USER"
-        },
-        {
           icon: "mdi-folder",
           text: "My Campers",
           route: "/campers",
@@ -106,7 +100,7 @@ export default {
         {
           icon: "mdi-account-switch",
           text: "Assign Dorms",
-          route: "/testboard",
+          route: "/dormassignment",
           role: ""
         }
       ]
